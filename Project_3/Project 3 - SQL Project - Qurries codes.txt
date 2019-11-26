@@ -1,0 +1,62 @@
+/* Query 1 - query used fro first insight */
+SELECT g.GenreId, g.name, COUNT(*) sold
+FROM Track t
+JOIN Genre g
+ON t.GenreId = g.GenreId
+JOIN InvoiceLine il
+ON t.TrackId = il.TrackId
+JOIN Invoice i
+ON il.InvoiceId = i.InvoiceId
+JOIN Customer c
+ON i.CustomerId = c.CustomerId
+GROUP BY g.GenreId, g.Name
+ORDER BY sold DESC
+LIMIT 10;
+
+
+/* Query 2 - query used fro second insight */
+SELECT ab.AlbumId, ab.Title, COUNT(*) quantity_sold
+FROM Track t
+JOIN Album ab
+ON t.AlbumId = ab.AlbumId
+JOIN InvoiceLine il
+ON t.TrackId = il.TrackId
+JOIN Invoice i
+ON il.InvoiceId = i.InvoiceId
+JOIN Customer c
+ON i.CustomerId = c.CustomerId
+GROUP BY ab.AlbumId, ab.Title
+ORDER BY quantity_sold DESC
+LIMIT 5;
+
+
+/* Query 3 - query used fro thrid insight */
+SELECT c.CustomerId, c.FirstName, c.LastName, SUM(i.total)
+FROM Track t
+JOIN Album ab
+ON t.AlbumId = ab.AlbumId
+JOIN InvoiceLine il
+ON t.TrackId = il.TrackId
+JOIN Invoice i
+ON il.InvoiceId = i.InvoiceId
+JOIN Customer c
+ON i.CustomerId = c.CustomerId
+GROUP BY c.CustomerId, c.FirstName, c.LastName
+HAVING SUM(i.total) > 400
+ORDER BY SUM(il.UnitPrice) DESC;
+
+
+/* Query 4 - query used fro fourth insight */
+SELECT i.BillingCity As city, SUM(il.UnitPrice) AS speding
+FROM Track t
+JOIN Genre g
+ON t.GenreId = g.GenreId
+JOIN InvoiceLine il
+ON t.TrackId = il.TrackId
+JOIN Invoice i
+ON il.InvoiceId = i.InvoiceId
+JOIN Customer c
+ON i.CustomerId = c.CustomerId
+WHERE g.name = 'Rock'
+GROUP BY 1
+ORDER BY 2 DESC;
