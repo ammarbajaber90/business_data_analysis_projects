@@ -1,7 +1,7 @@
 # business_data_analysis_projects
 These are the projects done in the online course of Udacity Business Analysis Nanodegree program.
 
-#Project 1: Insights from Data:                                                                             (August 2019 – September 2019)
+Project 1: Insights from Data:                                                                             (August 2019 – September 2019)
    
    - Building data intuition by looking at data dashboards and drawing insights.
 
